@@ -1,17 +1,36 @@
-const express = require('express');
-const bodyParse = require("body-parser")
-const app = express();
-const port = process.env.PORT || 3000;
+var express = require('express');  
+var app = express();  
+var bodyParser = require('body-parser');  
 
-app.use(express.json())
+// application/x-www-form-urlencoded parser  
+var urlencodedParser = bodyParser.urlencoded({ extended: false })  
+app.use(express.static('public'));
 
-app.post('/api/post-example',function(req,res){
-    var body = req.body;
-    console.log(body);
-    console.log("Dados recebidos: ");
-    res.send('Requisição POST bem-sucedida!')
-})
+// Mantem a landing page
+app.get(('/home'), function (req, res) {  
+   res.sendFile( __dirname + "/" + "home.html" );  
+}) 
 
-app.listen(port,()=>{
-    console.log(`Servidor express está rodando na porta ${port}`)
-})
+app.get(('/'), function (req, res) {  
+   res.sendFile( __dirname + "/" + "home.html" );  
+})  
+
+
+// receber os dados do post
+app.post('/process_post', urlencodedParser, function (req, res) {  
+   // Prepare output in JSON format  
+   response = {  
+       first_name:req.body,  
+       last_name:req.body  
+   };  
+   console.log(response);  
+   res.end(JSON.stringify(response));  
+}) 
+
+
+// Criação do servidor na porta 3000
+var server = app.listen(3000, function () {  
+  var host = server.address().address  
+  var port = server.address().port  
+  console.log("listen on http://%s:%s", host, port)  
+})  
