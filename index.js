@@ -2,17 +2,16 @@ var express = require('express');
 var app = express();  
 var bodyParser = require('body-parser');  
 
-// application/x-www-form-urlencoded parser  
 var urlencodedParser = bodyParser.urlencoded({ extended: false })  
 app.use(express.static('public'));
 
 // Mantem a landing page
 app.get(('/home'), function (req, res) {  
-   res.sendFile( __dirname + "/" + "home.html" );  
+   res.sendFile( __dirname + "/pages/" + "home.html" );  
 }) 
 
 app.get(('/'), function (req, res) {  
-   res.sendFile( __dirname + "/" + "home.html" );  
+   res.sendFile( __dirname + "/pages/" + "home.html" );  
 })  
 
 
