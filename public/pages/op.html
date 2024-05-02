@@ -15,12 +15,16 @@
             </div>
             <div class="container">
                 <div id="caixadeitens">
-                    <p class="TypeText" id="Pergunta1">.</p>
-                    <input type="number" id="Registro1" class="inputGeral" required>
-                    <p class="TypeText" id="Pergunta2">.</p>
-                    <input type="number" id="Registro2" class="inputGeral" required>
-                    <p><button id="confirmButton" onclick=LoadMDC()>Enviar</button></p>
-                    <script src="../js/MDC.js"></script>
+                    <script>
+                        console.log(window.location)
+                    </script>
+                    <form id="caixadeitens" method="POST" action="http://127.0.0.1:3000/process_post">
+                        <label for="input1" class="TypeText">Valor A:</label>
+                        <input type="number" id="value1" name="input1" class="inputGeral"><br/>
+                        <label for="input2" class="TypeText">Valor B:</label>
+                        <input type="number" id="value2" name="input2" class="inputGeral"><br/>
+                        <button type="submit" value="enviar" id="confirmButton">Enviar</button>
+                      </form>
                 </div>
                 <div id="caixadeitens">
                     <p class="TypeText">Resultados:</p>

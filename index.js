@@ -7,21 +7,31 @@ app.use(express.static('public'));
 
 // Mantem a landing page
 app.get(('/home'), function (req, res) {  
-   res.sendFile( __dirname + "/pages/" + "home.html" );  
+   res.sendFile( __dirname + "/public/pages/" + "home.html" );  
 }) 
 
 app.get(('/'), function (req, res) {  
-   res.sendFile( __dirname + "/pages/" + "home.html" );  
+   res.sendFile( __dirname + "/public/pages/" + "home.html" );  
+})  
+
+app.get(('/menu'), function (req, res) {  
+   res.sendFile( __dirname + "/public/pages/" + "menu.html" );  
+})  
+
+app.get(('/op/:parametro'), function (req, res) {  
+   res.sendFile( __dirname + "/public/pages/" + "op.html" );  
 })  
 
 
 // receber os dados do post
-app.post('/process_post', urlencodedParser, function (req, res) {  
+app.post('/process_post/:parametro', urlencodedParser, function (req, res) {  
    // Prepare output in JSON format  
    response = {  
-       first_name:req.body,  
-       last_name:req.body  
+       value1:req.body,  
+       value2:req.body  
    };  
+   console.log(req.params)
+   require(__dirname+"/js/"+`${req.params.parametro}`+".js")(req.body.input1,req.body.input2)
    console.log(response);  
    res.end(JSON.stringify(response));  
 }) 
