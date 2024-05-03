@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/Styles.css" />
+    <title>ATV3</title>
+  </head>
+  <body>
+    <div id="background">
+      <div id="centro">
+        <div id="tituloct">
+          <p class="nometxtct">
+            <a href="http://127.0.0.1:3000/home"
+              ><button id="ButtonT">Home</button></a
+            >
+          </p>
+          <p class="nometxtct">
+            <a href="http://127.0.0.1:3000/menu"
+              ><button id="ButtonT">Menu</button></a
+            >
+          </p>
+        </div>
+        <div class="container">
+          <div id="caixadeitens">
+            <form id="formcaixadeitens">
+              <label for="input1" class="TypeText">Valor A:</label>
+              <input
+                type="number"
+                id="value1"
+                name="input1"
+                class="inputGeral"
+              /><br />
+              <label for="input2" class="TypeText">Valor B:</label>
+              <input
+                type="number"
+                id="value2"
+                name="input2"
+                class="inputGeral"
+              /><br />
+              <button type="submit" value="enviar" id="confirmButton">Enviar</button>
+            </form>
+          </div>
+          <div id="caixadeitens">
+            <p class="TypeText">Resultados:</p>
+            <p
+              style="overflow: auto; width: auto; height: 160px"
+              id="resultados"
+            ></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#formcaixadeitens").on("submit", function (event) {
+          event.preventDefault(); // para prevenir o envio normal do formulário
+          $.ajax({
+            url: "http://127.0.0.1:3000/process_post/divisao", // substitua com o seu URL do servidor
+            type: "post",
+            data: $("#formcaixadeitens").serialize(),
+            success: function (data) {
+              // exibe a resposta do servidor no elemento com id 'resultados'
+              $("#resultados").html(data);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

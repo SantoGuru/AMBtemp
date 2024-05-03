@@ -19,7 +19,7 @@ app.get(('/menu'), function (req, res) {
 })  
 
 app.get(('/op/:parametro'), function (req, res) {  
-   res.sendFile( __dirname + "/public/pages/" + "op.html" );  
+   res.sendFile( __dirname + "/public/pages/" +`${req.params.parametro}` +".html");
 })  
 
 
@@ -27,13 +27,18 @@ app.get(('/op/:parametro'), function (req, res) {
 app.post('/process_post/:parametro', urlencodedParser, function (req, res) {  
    // Prepare output in JSON format  
    response = {  
-       value1:req.body,  
-       value2:req.body  
+      value1:req.body, 
    };  
-   console.log(req.params)
-   require(__dirname+"/js/"+`${req.params.parametro}`+".js")(req.body.input1,req.body.input2)
-   console.log(response);  
-   res.end(JSON.stringify(response));  
+   console.log(response)
+   console.log(require(__dirname+"/public/js/"+`${req.params.parametro}`+".js")(req.body.input1,req.body.input2))
+const arq = require(__dirname+"/public/js/"+`${req.params.parametro}`+".js")
+
+async function main() {
+    let resultado = await arq(req.body.input1,req.body.input2);
+    res.send(`<p>${resultado}</p>`)
+    console.log(resultado);
+}
+main();
 }) 
 
 
